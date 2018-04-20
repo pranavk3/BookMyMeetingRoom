@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <html lang="en">
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="com.model.MeetingRoom" %>
+<%@ page import="com.util.RoomAndMeeting" %>
 <head>
   <title>Bootstrap Example</title>
   <meta charset="utf-8">
@@ -22,27 +22,25 @@
       <a class="navbar-brand" href="#">BookMyMeetingRoom</a>
     </div>
     <ul class="nav navbar-nav">
-      <li class="active"><a href="#">Home</a></li>
-      
-        <li><a class="" data-toggle="" href="showmeetingrooms">show Meeting Rooms<span class=""></span></a>
+      <li class="active"><a href="/home">Home</a></li>
+         <li><a class="" data-toggle="" href="showmeetingrooms">show Meeting Rooms<span class=""></span></a>
       <li><a class="" data-toggle="" href="createroom">Add Meeting Room<span class=""></span></a>
     
       </li>
       <li><a href="#">Delete Meetings</a></li>
         <li><a href="#">Update Meetings</a></li>
-        
            <li><a href="showMeeting">show meeting</a></li>
         
         
     </ul>
     <ul class="nav navbar-nav navbar-right">
-     <li><a href="#"><span class=""></span>welcome ${username}</a></li>
+     <li><a href="#"><span class=""></span>welcome <%= session.getAttribute("nickName") %></a></li>
      <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span>LogOut</a></li>
     </ul>
   </div>
 </nav>
 
-<%-- List of Rooms-
+List of Rooms-
 <div class="container">
   <h2>Basic Table</h2>
             
@@ -52,33 +50,45 @@
       <th>Id</th>
         <th>Meeting Room Name</th>
         <th>Meeting Room Address</th>
-        <th>>Meeting Room description</th>
+        <th>Meeting Room description</th>
        
          <th>Image<th>
+          <th>Date From<th>
+           <th>Date To<th>
+            <th>Time From<th>
+            <th>Time To<th>
+            
       </tr>
     </thead>
     <tbody>
      <% ArrayList rooms = (ArrayList)request.getAttribute("rooms"); 
   
    for (int i = 0; i < rooms.size(); i++) { 
-        MeetingRoom room =(MeetingRoom)rooms.get(i);  %>  
+	   RoomAndMeeting room =(RoomAndMeeting)rooms.get(i);  %>  
       <tr>
-      <td><% out.print(room.getRoomId()); %></td>
+      <td><% out.print(room.getMeetingId()); %></td>
         <td><% out.print(room.getRoomName()); %></td>
         <td><% out.print(room.getRoomAddress()); %></td>
         <td><% out.print(room.getRoomDescr()); %></td>
         
          <td>
        
-						  				<img src="${images}/<%=room.getImageUrl() %>" width="200px" alt=""/>
+						  				<img src="${images}/<%=room.getImageUrl() %>" width="100px" alt=""/>
 						  	
 						  			</td>	
-         <td><a href="/book/<%= room.getRoomId()%>">Book</a></td>
+        
+          <td><% out.print(room.getDateFrom()); %></td>
+           <td><% out.print(room.getDateTo()); %></td>
+            <td><% out.print(room.getTimeFrom()); %></td>
+             <td><% out.print(room.getTimeTo()); %></td>
+             
+              <td><a href="/delete<%= room.getMeetingId()%>">Delete</a></td>
+               <td><a href="/update<%= room.getMeetingId()%>">update</a></td>
       </tr>
       
         <% } %>
      
     </tbody>
-  </table> --%>
+  </table>
 </div>
 </html>

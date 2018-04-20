@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<%@ page import="com.model.MeetingRoom" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+ <spring:url value="/resources/images" var="images" />
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,6 +14,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
 </head>
 <body>
+  <% MeetingRoom room =(MeetingRoom)request.getAttribute("meetingRoom"); %>
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -25,6 +28,7 @@
       </li>
       <li><a href="#">Delete Meetings</a></li>
         <li><a href="#">Update Meetings</a></li>
+           <li><a href="showMeeting">show meeting</a></li>
         
         
     </ul>
@@ -35,24 +39,24 @@
   </div>
 </nav>
 <div class="container">
-    		<h3>Create Meeting Room</h3>
+    		<h3>Book Meeting Room</h3>
     		<hr/>
         <div class="row">
         		<%-- Registration form code --%>
         		<div class="col-md-offset-2 col-md-8">
         		   
-			   <form:form method="post" modelAttribute="roomForm" action="savemeetingroom" class="form-signin" enctype="multipart/form-data">
+			   <form:form method="post" modelAttribute="meetingForm" action="savemeeting" class="form-signin">
 			   <div class="form-group">
 		        <label for="inputEmail" class="">Meeting Room Name</label>
-		        <input type="text" name="roomName" id="inputEmail" class="form-control" placeholder="Meeting Room Name" required autofocus>			   
+		        <input type="text" name="meetingRoomName" id="inputEmail" class="form-control" value="<% out.print(room.getRoomName()); %>" required autofocus>			   
 			   </div>
 			    <div class="form-group">
 		        <label for="inputEmail" class="">Meeting Room Address</label>
-		        <input type="text" name="roomAddress" id="inputEmail" class="form-control" placeholder="Meeting Room Address" required autofocus>			   
+		        <input type="text" id="inputEmail" class="form-control" value="<% out.print(room.getRoomAddress()); %>" required autofocus>			   
 			   </div>
 			    <div class="form-group">
 		        <label for="inputEmail" class="">Room Description</label>
-		        <textarea name="roomDescr" id="inputEmail" class="form-control" placeholder="Room Description" required autofocus></textarea>			   
+		        <textarea  id="" class="form-control"  required autofocus><% out.print(room.getRoomDescr()); %></textarea>			   
 			   </div>
 			   
 			    
@@ -60,17 +64,36 @@
 			   <fieldset class="form-group">
 		  	<div class="row">
 		  		<div class="col-md-6">
-				    <label for="uploadImage">Upload Image</label>
-			    		<input type="file" class="form-control-file" id="uploadImage" name="file" />
-	    		  		<%-- <form:errors path="file"/>  --%>
-	    		  		<form:hidden path="imageUrl"/>	    		  		
+				    
+			    			<img src="${images}/<%=room.getImageUrl() %>" width="400px" alt=""/>    		  		
 		  		</div>
 		  		</div>
 		  		</fieldset>
+		  		
+		  		   <div class="form-group">
+		        <label for="inputEmail" class="">From Date</label>
+		        <input type="date" name="dateFrom" id="inputEmail" class="form-control" required autofocus>			   
+			   </div>
+			  
+			  
+		  		   <div class="form-group">
+		        <label for="inputEmail" class="">To Date</label>
+		        <input type="date" name="dateTo" id="inputEmail" class="form-control" required autofocus>			   
+			   </div>
+			   
+			    <div class="form-group">
+		        <label for="inputEmail" class="">From Time</label>
+		        <input type="time" name="tFrom" id="inputEmail" class="form-control" required autofocus>			   
+			   </div>
+			   
+			    <div class="form-group">
+		        <label for="inputEmail" class="">To Time</label>
+		        <input type="time" name="tTo" id="inputEmail" class="form-control" required autofocus>			   
+			   </div>
 			  
 		       
 		        <div class="form-group">
-		        <button class="btn btn-sm btn-primary" type="submit">Create</button>
+		        <button class="btn btn-sm btn-primary" type="submit">Book Meeting Room</button>
 		        </div>
 		         </form:form>
 		        </div>

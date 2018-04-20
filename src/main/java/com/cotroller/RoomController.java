@@ -1,8 +1,10 @@
 package com.cotroller;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.dao.MeetingRoomDao;
 import com.model.MeetingRoom;
@@ -73,6 +76,20 @@ public class RoomController {
 				
 				
 			}
+			
+			
+			
+			 @RequestMapping("/showmeetingrooms")
+			 ModelAndView showMeetingRoom(Model model,HttpServletRequest req,HttpSession session)
+			 {
+				 
+					ModelAndView homeModel=new ModelAndView("showRooms");
+				 ArrayList<MeetingRoom> rooms=(ArrayList<MeetingRoom>) meetingroomdao.findAll();
+				 session.setAttribute("meetingRooms", rooms);
+				 req.setAttribute("rooms", rooms);
+				return homeModel;
+				 
+			 }
 			
 			
 			
