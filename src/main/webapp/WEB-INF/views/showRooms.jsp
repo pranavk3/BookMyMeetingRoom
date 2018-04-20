@@ -19,12 +19,11 @@
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">BookMyMeetingRoom</a>
+      <a class="navbar-brand" href="/home">BookMyMeetingRoom</a>
     </div>
     <ul class="nav navbar-nav">
-      <li class="active"><a href="#">Home</a></li>
-      
-        <li><a class="" data-toggle="" href="showmeetingrooms">show Meeting Rooms<span class=""></span></a>
+      <li class="active"><a href="/home">Home</a></li>
+         <li><a class="" data-toggle="" href="showmeetingrooms">show Meeting Rooms<span class=""></span></a>
       <li><a class="" data-toggle="" href="createroom">Add Meeting Room<span class=""></span></a>
     
       </li>
@@ -36,13 +35,13 @@
         
     </ul>
     <ul class="nav navbar-nav navbar-right">
-     <li><a href="#"><span class=""></span>welcome ${username}</a></li>
+     <li><a href="#"><span class=""></span>welcome <%= session.getAttribute("nickName") %></a></li>
      <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span>LogOut</a></li>
     </ul>
   </div>
 </nav>
 
-<%-- List of Rooms-
+List of Rooms-
 <div class="container">
   <h2>Basic Table</h2>
             
@@ -73,12 +72,12 @@
 						  				<img src="${images}/<%=room.getImageUrl() %>" width="200px" alt=""/>
 						  	
 						  			</td>	
-         <td><a href="/book/<%= room.getRoomId()%>">Book</a></td>
+         <td><a href="/book<%= room.getRoomId()%>">Book</a></td>
       </tr>
       
         <% } %>
      
     </tbody>
-  </table> --%>
+  </table>
 </div>
 </html>

@@ -3,6 +3,7 @@ package com.cotroller;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -43,6 +44,18 @@ public class LoginController {
 	 return "Login";
 	 }
 	 
+	 @RequestMapping("/home")
+	 public String welcome1(ModelMap model,Model registerModel,HttpServletRequest req,HttpSession session) {
+		/* System.out.println("inside ");
+		 RoomUser user = new RoomUser();
+			model.addAttribute("userForm", user);
+		*/
+			/*model.addAttribute("userForm", user);*/
+		 req.setAttribute("username", (String)session.getAttribute("nickName"));
+		 
+	 return "Home";
+	 }
+	 
 	 @RequestMapping("/register")
 	 public String register(ModelMap model,Model registerModel) {
 		 System.out.println("inside ");
@@ -57,7 +70,7 @@ public class LoginController {
 	 
 	 @RequestMapping("/login")
 	 public ModelAndView showHome(@ModelAttribute("userForm") RoomUser user,
-				BindingResult result, Model model,HttpServletRequest req)
+				BindingResult result, Model model,HttpServletRequest req,HttpSession session)
 	 {
 		 RoomUser user1=roomUserDao.get(user.getEmailId(), user.getPassword());
 		if( user1!=null)
@@ -67,7 +80,10 @@ public class LoginController {
 			//homeModel.addObject("username",user.getFirstName());
 			System.out.println(user1.getFirstName());
 			 req.setAttribute("username", user1.getFirstName());
+			 session.setAttribute("nickName", user1.getFirstName());
+			 session.setAttribute("emailId",user1.getEmailId());
 			 ArrayList<MeetingRoom> rooms=(ArrayList<MeetingRoom>) meetingRoomDao.findAll();
+			 session.setAttribute("meetingRooms", rooms);
 			 req.setAttribute("rooms", rooms);
 			return homeModel;
 		}
@@ -86,8 +102,16 @@ public class LoginController {
 		 System.out.println("inside RegisterUser"+user.getFirstName()+" "+user.getLastName()+" "+user.getPassword());
 		 roomUserDao.save(user);
 					
-		 return "Home";
+		 return "redirect:/";
 		
+	 }
+	 
+	 @RequestMapping("/logout")
+	 public String logout(HttpSession session)
+	 {
+		 
+		 session.invalidate();
+		 return "redirect:/";
 	 }
 	 
 
