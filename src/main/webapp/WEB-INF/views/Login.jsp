@@ -14,6 +14,7 @@
 	.login-form {
 		width: 340px;
     	margin: 50px auto;
+    	margin-top:50px;
 	}
 	body{
 		color: #fff;
@@ -30,10 +31,12 @@
         margin: 0 0 15px;
         color: #636363;
     }
-     .login-form p {
-      
-        color: #636363;
+    
+      .login-form a {
+        margin: 0 0 15px;
+        color: #fff;
     }
+    
     .form-control, .btn {
         min-height: 38px;
         border-radius: 2px;
@@ -45,6 +48,18 @@
 </style>
 </head>
 <body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">BookMyMeetingRoom</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+      
+       </ul>
+  </div>
+</nav>
 <div class="login-form">
     <form:form modelAttribute="userForm" action="login" method="post">
         <h2 class="text-center">Log in</h2>       
@@ -57,12 +72,9 @@
         <div class="form-group">
             <button type="submit" class="btn btn-primary btn-block">Log in</button>
         </div>
-        <div class="clearfix">
-            <label class="pull-left checkbox-inline"><input type="checkbox"> Remember me</label>
-            <a href="#" class="pull-right">Forgot Password?</a>
-        </div>        
+            
     </form:form>
-    <p class="text-center"><a href="register">Create an Account</a></p>
+    <p class="text-center"><a href="register">Create an Account......</a></p>
 </div>
 </body>
 </html> 

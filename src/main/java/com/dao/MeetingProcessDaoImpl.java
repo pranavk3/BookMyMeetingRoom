@@ -1,5 +1,6 @@
 package com.dao;
 
+import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -58,6 +59,32 @@ public class MeetingProcessDaoImpl implements MeetingProcessDao {
 			exc.printStackTrace();
 		return false;
 		}
+	}
+	@Override
+	public List<Meeting> getMeetingToSendMail(Date fromDate, String time) {
+		try
+		{
+			System.out.println("inside getMeetingToSendMail ");
+	
+		String hql = "FROM Meeting WHERE dateFrom=? and timeFrom=?";
+		List<Meeting>meetings=entityManager.createQuery(hql).setParameter(1,fromDate).setParameter(2, time).getResultList();
+		
+		System.out.println("&&&&&&&&&&&&&&&&&&"+meetings);
+		if(!meetings.isEmpty())
+		{
+		return meetings;
+		}
+		else
+		{
+			return null;
+		}
+		}
+	
+	catch(Exception e)
+	{
+		return null;
+	}
+		
 	}
 
 }
